@@ -8,7 +8,14 @@ from qiskit.visualization import plot_histogram
 simulator = QasmSimulator()
 
 # Create a Qauntum Circuit acting on q register
+# intialise 2 qubits in zero state; with 2 classical bits set to zero;
+#and the circuit is quantum circuit
+#QuantumCircuit( int, int)
+
 circuit = QuantumCircuit(2, 2)
+
+#Creating the Bell's Entanglement state
+
 
 #Add a H gate on qubit 0
 circuit.h(0)
@@ -17,6 +24,8 @@ circuit.h(0)
 circuit.cx(0, 1)
 
 #Map the quantum measurements to classical bits
+#if you pass the entire quantum and classical registers  to measure
+# the ith qubit result will be stored in ith classical bit.
 circuit.measure( [0, 1], [0, 1] )
 
 #compile the circuit down to low-level QASM instructions
@@ -38,6 +47,7 @@ print("\n Total count for 00 and 11 are: \n",counts)
 #Draw the circuit
 circuit.draw()
 
+plot_histogram(counts)
 if(0):
     provider = IBMQ.load_account()
     backend = provider.get_backend('ibmq_qasm_simulator')
